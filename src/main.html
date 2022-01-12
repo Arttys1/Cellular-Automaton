@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://unpkg.com/konva@8/konva.min.js"></script> <!--lib graphic 2D-->
+
+        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="GridView.js"></script>
+
+        <script type="text/javascript" src="Metier/coordonnee.js"></script>
+        <script type="text/javascript" src="Metier/Cellule.js"></script>
+        <script type="text/javascript" src="Metier/Direction.js"></script>
+        <script type="text/javascript" src="Metier/Etat.js"></script>
+        <script type="text/javascript" src="Metier/grille.js"></script>        
+        <script type="text/javascript" src="Metier/Settings.js"></script>  
+        <script type="text/javascript" src="Metier/Automate/Automate.js"></script>  
+        <script type="text/javascript" src="Metier/Automate/GameOfLife.js"></script>  
+
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="main.css">
+    </head>
+    <body>
+        <section class="row">
+            <div id='container' class="col"></div>
+            <script>
+                try {
+                    var grid = new GridView('container');
+                    var automate = new GameOfLife(grid.getGrid());
+                }
+                catch(e) {
+                    document.write(e);
+                }
+            </script>
+            <div class="col">
+                <h1>Simulateur d'automates cellulaires</h1>
+                <label for="CBAutomateType">Type automate cellulaire : </label>
+                <select name="CBAutomateType">
+                    <option value="A">Le jeu de la vie</option>
+                    <option value="B">Day & Night</option>
+                    <option value="-">HighLife</option>
+                </select> <br/>
+
+                <label for="CBcolor">Couleur de l'automate : </label>
+                <select name="CBcolor">
+                    <option value="">Blanc-Cyan</option>
+                    <option value="">Noir-Orange</option>
+                </select> <br/>
+
+                <label for="CBSize">Taille des cellules : </label>
+                <select name="CBSize">
+                    <option value="">50</option>
+                    <option value="">30</option>
+                </select> <br/>
+
+                <label>Nombre d'itérations</label>
+                <input type="number" id="iterateInput" value="1" min="1"></input><br/>
+
+                <label>Délai entre 2 itérations</label>
+                <input type="number" id="delayIterate" value="500" max="2000" min="100"></input><br/>
+
+                <button onclick="
+                try { 
+                    let number = document.getElementById('iterateInput').value;
+                    let delay = document.getElementById('delayIterate').value;
+                    grid.iterate(automate, number, delay);
+                } catch (e) {
+                    document.write(e);
+                }
+                ">Lancer l'automate</button><br/>
+
+                <button onclick="
+                try {
+                    grid.randomizeGrid();
+                }catch(e) {
+                    document.write(e);
+                }
+                ">Grille aléatoire</button>
+            </div>
+        </section>
+    </body>
+</html>
