@@ -1,7 +1,7 @@
 /**
- * Classe représentant l'automate "Jeu de la vie". Hérité de Automate.
+ * Classe représentant l'automate "Day&Night". Hérité de Automate.
  */
-class GameOfLife extends Automate {
+class DayNight extends Automate{
     constructor(grid){
         super(grid);
     }
@@ -13,22 +13,22 @@ class GameOfLife extends Automate {
      */
     isCellAlive(cell)
     {
-        let etat = cell.getEtat();
+        let etat = cell.getEtat()
         let count = this._getCountAlive(cell.getVoisins());
-        if(cell.getEtat() === Etat.VIVANT)
+        if(etat === Etat.VIVANT)
         {
-            if(count !== 3 && count !== 2)
+            if(count !== 3 && count !== 4 && count !== 6 &&  count !== 7 && count !== 8)
             {
                 etat = Etat.MORT;
             }
         }
-        else {
-            if(count === 3)
+        else
+        {
+            if(count === 3 || count === 6 || count === 7 || count === 8)
             {
-                etat = Etat.VIVANT
+                etat = Etat.VIVANT;
             }
         }
-
         return etat;
     }
 }

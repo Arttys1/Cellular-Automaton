@@ -1,6 +1,12 @@
+/**
+ * Classe représentant la grille. Elle contient toutes les cellules. 
+ */
 class Grille{
     #cellulesMap = null;
 
+    /**
+     * Constructeur
+     */
     constructor()
     {
         this.#cellulesMap = new Map();
@@ -11,9 +17,9 @@ class Grille{
     {
         let settings = Settings.get();
         this.#cellulesMap.clear();
-        for(let i = 0; i < settings.getNbCellWidth(); i++)
+        for(let i = 0; i < settings.getNbCellWidth() + 6; i++)
         {
-            for(let j = 0; j < settings.getNbCellHeight(); j++)
+            for(let j = 0; j < settings.getNbCellHeight() + 6; j++)
             {
                 let coord = new Coordonnee(i, j);
                 let cell = new Cellule(coord);
@@ -36,16 +42,28 @@ class Grille{
         }
     }
 
+    /**
+     * Méthode permettant de renvoyer toutes les cellules de la grille.
+     * @returns Toutes les cellules de la grilles.
+     */
     getCellules()
     {
         return this.#cellulesMap.values();
     }
 
+    /**
+     * Méthode permettant de renvoyer une cellule selon sa coordonnée.
+     * @param {*} coord coordonnée de la cellule souhaité.
+     * @returns la cellule associée à la coordonnée.
+     */
     getCell(coord)
     {
         return this.#cellulesMap.get(coord);
     }
 
+    /**
+     * Méthode permettant de choisir aléatoirement l'état de chaque cellule de la grille.
+     */
     randomizeGrid()
     {
         for(const cell of this.getCellules())
