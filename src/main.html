@@ -3,6 +3,7 @@
     <head>
         <script src="https://unpkg.com/konva@8/konva.min.js"></script> <!--lib graphic 2D-->
 
+        <script type="text/javascript" src="main.js"></script>
         <script type="text/javascript" src="GridView.js"></script>
 
         <script type="text/javascript" src="Metier/coordonnee.js"></script>
@@ -53,9 +54,17 @@
                 </select> <br/>
 
                 <label for="CBSize">Taille des cellules : </label>
-                <select name="CBSize">
-                    <option value="">50</option>
-                    <option value="">30</option>
+                <select id="CBSize" onchange="
+                try{
+                    let select = document.getElementById('CBSize');
+                    Settings.get().setSizeCell(select.options[select.selectedIndex].value);
+                    grid.changeSizeCell();
+                }catch(e) {
+                    document.write(e); 
+                }">
+                    <option value=20>20</option>
+                    <option value=30>30</option>
+                    <option value=50>50</option>                    
                 </select> <br/>
 
                 <label>Nombre d'itérations</label>
@@ -91,7 +100,8 @@
                     document.write(e);
                 }
                 ">Grille aléatoire</button>
-                <button>Grille remplis</button>
+                <button onclick="grid.fillGrid();">Grille remplis</button>
+                <button onclick="grid.emptyGrid()">Grille vide</button>
             </div>
         </section>
     </body>

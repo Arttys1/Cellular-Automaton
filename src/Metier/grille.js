@@ -77,4 +77,26 @@ class Grille{
             }
         }
     }
+
+    /**
+     * Méthode remplissant toute la grille de cellules vivantes.
+     */
+    fillGrid()
+    {
+        for(const cell of this.getCellules())
+        {
+            cell.setEtat(Etat.VIVANT);
+        }
+    }
+
+    /**
+     * Méthode permettant de vider la grille.
+     */
+    emptyGrid()
+    {
+        for(const cell of this.getCellules())
+        {
+            cell.setEtat(Etat.MORT);
+        }
+    }
 }

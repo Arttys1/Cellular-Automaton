@@ -53,4 +53,11 @@ class Cellule
      */
     getCoordonnee() { return this.#coordonnee; }
 
+    getCenter() {
+        let sizeSquare = Settings.get().getSizeCell();
+        let x = this.#coordonnee.getX() * sizeSquare - 3 * sizeSquare;
+        let y = this.#coordonnee.getY() * sizeSquare - 3 * sizeSquare;
+        return new Coordonnee(x + (sizeSquare / 2), y + (sizeSquare / 2));
+    }
+
 }

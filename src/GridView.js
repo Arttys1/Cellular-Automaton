@@ -1,8 +1,7 @@
 /**
  * Classe représentant la vue de la grille.
  */
-class GridView
-{
+class GridView {
     #grille = null;
     #containerName = '';
     #rectsMap = new Map();
@@ -12,9 +11,7 @@ class GridView
      * Constructeur
      * @param {*} container id du conteneur de la grille 
      */
-    constructor(container)
-    {
-        Settings.get().setSizeCell(20);
+    constructor(container) {
         this.#grille = new Grille();
         this.#containerName = container;
         this.loadContainer();
@@ -24,10 +21,8 @@ class GridView
      * Méthode permettant d'initialiser le conteneur.
      * Permet aussi de l'actualiser.
      */
-    loadContainer()
-    {
-        if(this.#stage != null)
-        {
+    loadContainer() {
+        if (this.#stage != null) {
             this.#stage.destroy();  //free memory
         }
         this.#stage = new Konva.Stage({
@@ -36,66 +31,107 @@ class GridView
             height: Settings.get().getHeightContainer(),
         });
 
-        let layer = new Konva.Layer();        
+        let layer = new Konva.Layer();
         this.#stage.add(layer);
         this.#createGrille(layer);
     }
 
-    #createGrille(layer)
-    {
+    #createGrille(layer) {
         this.#rectsMap.clear();
         layer.clear();
-        for(const cellule of this.#grille.getCellules())
-        {
+        for (const cellule of this.#grille.getCellules()) {
             var rectangle = this.#rect(cellule);
-            rectangle.on('click', function(){ 
+
+            //définition d'évenements sur les rectangles
+            rectangle.on('click', function () {
                 grid.clickRect(this);
-             });
+            });
+            rectangle.on('mousedown', () => {
+                this.#AllRectangleOverOn();
+            });
+            rectangle.on('mouseup', () => {
+                this.#AllRectangleOverOff();
+            })
+
             this.#rectsMap.set(rectangle, cellule);
             layer.add(rectangle);
         }
     }
 
-    #rect(cellule)
-    { 
+    #AllRectangleOverOn() {
+        try {
+            for (const rect of this.#rectsMap.keys()) {
+                rect.on('mouseover', function () {
+                    let cell = grid.getCell(this);
+                    cell.setEtat(Etat.VIVANT);
+                    this.setFill(grid.getColor(cell));
+                });
+            }
+        }
+        catch (e) {
+            document.write(e);
+        }
+    }
+
+    #AllRectangleOverOff() {
+        try {
+            for (const rect of this.#rectsMap.keys()) {
+                rect.off('mouseover');
+            }
+        }
+        catch (e) {
+            document.write(e);
+        }
+    }
+
+    #rect(cellule) {
         let sizeSquare = Settings.get().getSizeCell();
-        let coord = cellule.getCoordonnee();    
+        let coord = cellule.getCoordonnee();
         return new Konva.Rect({
             x: coord.getX() * sizeSquare - 3 * sizeSquare,
             y: coord.getY() * sizeSquare - 3 * sizeSquare,
             width: sizeSquare,
             height: sizeSquare,
-            fill: this.#getColor(cellule),
-            stroke: this.#getStroke(Settings.get().getCouleur()),
+            fill: this.getColor(cellule),
+            stroke: 'black',
             strokeWidth: 1,
         })
     }
 
-    #getStroke(couleur)
-    {
-        let stroke = 'black';
-
-        if(couleur === Couleur.NOIR_ORANGE)
-        {
-            stroke = 'white';
-        }
-
-        return stroke;
-    }
-
-    #getColor(cellule)
-    {
+    /**
+     * Méthode permettant de renvoyer la couleur d'un rectangle en fonction la cellule qui lui est associé.
+     * @param {*} cellule cellule du rectangle
+     * @returns La couleur qu'il devra prendre
+     */
+    getColor(cellule) {
         let couleur = Settings.get().getCouleur();
         let color;
 
-        switch(cellule.getEtat())
-        {
+        switch (cellule.getEtat()) {
             case Etat.MORT: color = couleur.getMort(); break;
             case Etat.VIVANT: color = couleur.getVivant(); break;
-            default : throw new Error('Not implemented enum case');
+            default: throw new Error('Not implemented enum case');
         }
 
         return color;
+    }
+
+    /**
+     * Evenement du click sur un rectangle. Permet de changer l'etat du rectangle.
+     * @param {*} rectangle le rectangle envoyant l'evenement 
+     */
+    clickRect(rectangle) {
+        try {
+            let cell = this.getCell(rectangle);
+            if (cell.getEtat() == Etat.MORT)
+                cell.setEtat(Etat.VIVANT);
+            else
+                cell.setEtat(Etat.MORT);
+            rectangle.setFill(this.getColor(cell));
+        }
+        catch (e) {
+            document.write(e);
+        }
     }
 
     /**
@@ -103,31 +139,11 @@ class GridView
      * @param {*} key Rectangle associé à la cellule souhaité
      * @returns La cellule associé au rectangle en paramètre
      */
-    getCell(key)
-    {
+    getCell(key) {
         return this.#rectsMap.get(key);
     }
 
-    /**
-     * Evenement du click sur un rectangle. Permet de changer l'etat du rectangle.
-     * @param {*} rectangle le rectangle envoyant l'evenement 
-     */
-    clickRect(rectangle)
-    {        
-        try
-        {
-            let cell = this.getCell(rectangle);
-            if(cell.getEtat() == Etat.MORT)
-                cell.setEtat(Etat.VIVANT);
-            else
-                cell.setEtat(Etat.MORT);
-            rectangle.setFill(this.#getColor(cell));
-        }
-        catch(e)
-        {
-            document.write(e);
-        }
-    }
+    getMainStage() { return this.#stage; };
 
     /**
      * Accesseur de la grille.
@@ -138,9 +154,24 @@ class GridView
     /**
      * Méthode permettant de choisir aléatoirement l'état de chacune des cellules de la grille.
      */
-    randomizeGrid()
-    {
+    randomizeGrid() {
         this.#grille.randomizeGrid();
+        this.loadContainer();
+    }
+
+    /**
+     * Méthode remplissant toute la grille de cellules vivantes.
+     */
+    fillGrid() {
+        this.#grille.fillGrid();
+        this.loadContainer();
+    }
+
+    /**
+     * Méthode permettant de vider la grille.
+     */
+    emptyGrid() {
+        this.#grille.emptyGrid();
         this.loadContainer();
     }
 
@@ -148,14 +179,17 @@ class GridView
      * Méthode permettant de changer la couleur de la grille.
      * @param {*} n 
      */
-    changeColor(n)
-    {
-        switch(n)
-        {
+    changeColor(n) {
+        switch (n) {
             case '1': Settings.get().setCouleur(Couleur.BLANC_CYAN); break;
             case '2': Settings.get().setCouleur(Couleur.NOIR_ORANGE); break;
             default: throw new Error('not implemented Color');
         }
+        this.loadContainer();
+    }
+
+    changeSizeCell() {
+        this.#grille = new Grille();
         this.loadContainer();
     }
 
@@ -165,15 +199,13 @@ class GridView
      * @param {*} number Nombre d'itérations
      * @param {*} delay Délai entre chaque itération
      */
-    async iterate(automate, number, delay)
-    {
-        for(let i = 0; i < number; i++)
-        {
+    async iterate(automate, number, delay) {
+        for (let i = 0; i < number; i++) {
             automate.iterate();
             this.loadContainer();
             await new Promise(resolve => {  //permet d'attendre entre chaque itération
                 setTimeout(() => { resolve('') }, delay);
-            })
+            });
         }
     }
 

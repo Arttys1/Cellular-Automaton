@@ -3,9 +3,9 @@
  */
 class Settings
 {
-    #sizeCell = 50;
-    #nbCellHeight = 12;
-    #nbCellWidth = 18;
+    #sizeCell = 20;
+    #nbCellHeight = 30;
+    #nbCellWidth = 45;
     #heightContainer = 600;
     #widthContainer = 900;
     #couleur = Couleur.BLANC_CYAN;
@@ -13,7 +13,6 @@ class Settings
     static #instance = null;
 
     constructor(){
-
     }
 
     /**
