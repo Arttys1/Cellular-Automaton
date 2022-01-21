@@ -10,11 +10,11 @@
         <script type="text/javascript" src="Metier/Cellule.js"></script>
         <script type="text/javascript" src="Metier/Direction.js"></script>
         <script type="text/javascript" src="Metier/Etat.js"></script>
+        <script type="text/javascript" src="Metier/Couleur.js"></script>  
         <script type="text/javascript" src="Metier/grille.js"></script>        
         <script type="text/javascript" src="Metier/Settings.js"></script>  
         <script type="text/javascript" src="Metier/Automate/Automate.js"></script>  
-        <script type="text/javascript" src="Metier/Automate/GameOfLife.js"></script>  
-        <script type="text/javascript" src="Metier/Couleur.js"></script>  
+        <script type="text/javascript" src="Metier/Automate/GameOfLife.js"></script>        
         <script type="text/javascript" src="Metier/Automate/Day&Night.js"></script>  
 
         <meta charset="utf-8"/>
@@ -22,8 +22,8 @@
     </head>
     <body>
         <section class="row">
-            <div id='container' class="col"></div>
-            <script>
+            <div id='container' class="col"></div> <!--Container of the grid-->
+            <script type="text/javascript">
                 try {
                     var grid = new GridView('container');
                 }
@@ -34,34 +34,21 @@
             <div class="col">
                 <h1>Simulateur d'automates cellulaires</h1>
                 <label>Type automate cellulaire : </label>
-                <select id="CBAutomateType" onchange="
-                let select = document.getElementById('CBAutomateType');
-                let label = document.getElementById('labelAutomate');
-                label.innerHTML = select.options[select.selectedIndex].innerHTML;">
+                <select id="CBAutomateType">
                     <option value="A">Jeu de la vie</option>
                     <option value="B">Day & Night</option>
                     <option value="C">HighLife</option>
                 </select> <br/>
 
                 <label for="CBcolor">Couleur de l'automate : </label>
-                <select name="CBcolor" id="selectColor" onchange="
-                try{ let select =  document.getElementById('selectColor');
-                    grid.changeColor(select.options[select.selectedIndex].value); }
-                catch(e) { document.write(e); }
-                ">
+                <select name="CBcolor" id="selectColor">
                     <option value='1'>Blanc-Cyan</option>
                     <option value='2'>Noir-Orange</option>
+                    <option value='3'>Arc-en-ciel</option>
                 </select> <br/>
 
                 <label for="CBSize">Taille des cellules : </label>
-                <select id="CBSize" onchange="
-                try{
-                    let select = document.getElementById('CBSize');
-                    Settings.get().setSizeCell(select.options[select.selectedIndex].value);
-                    grid.changeSizeCell();
-                }catch(e) {
-                    document.write(e); 
-                }">
+                <select id="CBSize">
                     <option value=20>20</option>
                     <option value=30>30</option>
                     <option value=50>50</option>                    
@@ -73,35 +60,14 @@
                 <label>Délai entre 2 itérations</label>
                 <input type="number" id="delayIterate" value="500" max="2000" min="100"></input><br/>
 
-                <button onclick="
-                try { 
-                    let number = document.getElementById('iterateInput').value;
-                    let delay = document.getElementById('delayIterate').value;
-                    let select = document.getElementById('CBAutomateType');
-                    let type = select.options[select.selectedIndex].value;
-                    let automate;
-                    switch(type){
-                        case 'A': automate = new GameOfLife(grid.getGrid()); break;
-                        case 'B': automate = new DayNight(grid.getGrid()); break;
-                        //case 'C': break;
-                        default : throw new Error('Not implemented Automaton type');
-                    }        
-                    grid.iterate(automate, number, delay);
-                } catch (e) {
-                    document.write(e);
-                }
-                ">Lancer l'automate</button>
+                <button id="buttonAutomate">Lancer l'automate</button>
                 <label id="labelAutomate">Jeu de la vie</label><br/>
 
-                <button onclick="
-                try {
-                    grid.randomizeGrid();
-                }catch(e) {
-                    document.write(e);
-                }
-                ">Grille aléatoire</button>
-                <button onclick="grid.fillGrid();">Grille remplis</button>
-                <button onclick="grid.emptyGrid()">Grille vide</button>
+                <button id="buttonRandomGrid">Grille aléatoire</button>
+                <button id="buttonFillGrid"">Grille remplis</button>
+                <button id="buttonEmptyGrid">Grille vide</button>
+
+                <script type="text/javascript" src="init.js"></script> <!--initialise event of the page-->
             </div>
         </section>
     </body>

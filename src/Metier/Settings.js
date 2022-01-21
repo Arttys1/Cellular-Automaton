@@ -97,6 +97,13 @@ class Settings
      * Mutateur de la couleur des cellules.
      * @param {*} couleur La nouvelle couleur. 
      */
-    setCouleur(couleur) {this.#couleur = couleur; }
+    setCouleur(couleur) {
+        if(couleur === Couleur.ARC_EN_CIEL)
+        {
+            //Permet de recharger la constante pour qu'elle est une nouvelle couleur à chaque sélection
+            Couleur.ARC_EN_CIEL = new Couleur('black', Konva.Util.getRandomColor());
+        }
+        this.#couleur = couleur;
+     }
 
 }

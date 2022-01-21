@@ -143,8 +143,6 @@ class GridView {
         return this.#rectsMap.get(key);
     }
 
-    getMainStage() { return this.#stage; };
-
     /**
      * Accesseur de la grille.
      * @returns La grille
@@ -171,7 +169,7 @@ class GridView {
      * Méthode permettant de vider la grille.
      */
     emptyGrid() {
-        this.#grille.emptyGrid();
+        this.#grille = new Grille();
         this.loadContainer();
     }
 
@@ -183,11 +181,15 @@ class GridView {
         switch (n) {
             case '1': Settings.get().setCouleur(Couleur.BLANC_CYAN); break;
             case '2': Settings.get().setCouleur(Couleur.NOIR_ORANGE); break;
+            case '3': Settings.get().setCouleur(Couleur.ARC_EN_CIEL); break;
             default: throw new Error('not implemented Color');
         }
         this.loadContainer();
     }
 
+    /**
+     * Méthode permettant de changer la taile des cellules de la grille
+     */
     changeSizeCell() {
         this.#grille = new Grille();
         this.loadContainer();

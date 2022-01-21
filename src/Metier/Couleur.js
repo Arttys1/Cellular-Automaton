@@ -28,6 +28,11 @@ class Couleur
     static NOIR_ORANGE = new Couleur('black', 'orange');
 
     /**
+     * Constante renvoyant une couleur aléatoire
+     */
+    static ARC_EN_CIEL = new Couleur('black', Konva.Util.getRandomColor());
+
+    /**
      * Accesseur de la couleur de la mort.
      * @returns La couleur quand la cellule est morte.
      */

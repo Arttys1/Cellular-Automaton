@@ -88,15 +88,4 @@ class Grille{
             cell.setEtat(Etat.VIVANT);
         }
     }
-
-    /**
-     * Méthode permettant de vider la grille.
-     */
-    emptyGrid()
-    {
-        for(const cell of this.getCellules())
-        {
-            cell.setEtat(Etat.MORT);
-        }
-    }
 }
