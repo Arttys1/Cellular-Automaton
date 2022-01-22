@@ -16,6 +16,7 @@
         <script type="text/javascript" src="Metier/Automate/Automate.js"></script>  
         <script type="text/javascript" src="Metier/Automate/GameOfLife.js"></script>        
         <script type="text/javascript" src="Metier/Automate/Day&Night.js"></script>  
+        <script type="text/javascript" src="Metier/Automate/HighLife.js"></script>
 
         <meta charset="utf-8"/>
         <link rel="stylesheet" type="text/css" href="main.css">
@@ -55,7 +56,7 @@
                 </select> <br/>
 
                 <label>Nombre d'itérations</label>
-                <input type="number" id="iterateInput" value="1" min="1"></input><br/>
+                <input type="number" id="iterateInput" value="10" min="1"></input><br/>
 
                 <label>Délai entre 2 itérations</label>
                 <input type="number" id="delayIterate" value="500" max="2000" min="100"></input><br/>
@@ -64,10 +65,15 @@
                 <label id="labelAutomate">Jeu de la vie</label><br/>
 
                 <button id="buttonRandomGrid">Grille aléatoire</button>
-                <button id="buttonFillGrid"">Grille remplis</button>
+                <button id="buttonFillGrid">Grille remplis</button>
                 <button id="buttonEmptyGrid">Grille vide</button>
 
-                <script type="text/javascript" src="init.js"></script> <!--initialise event of the page-->
+                <script type="text/javascript" src="init.js"></script> <!--initialize event of the page-->
+                <footer>
+                    <p>Réalisé par Arnaud Curie.</p>
+                    <p><a href="https://github.com/Arttys1/Cellular-Automaton">Lien vers le github du projet</a></p>
+                    <p><a href="https://fr.wikipedia.org/wiki/Automate_cellulaire">Wikipédia automates cellulaires</a></p>
+                </footer>
             </div>
         </section>
     </body>

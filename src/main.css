@@ -1,3 +1,44 @@
+body
+{
+    background-color:  whitesmoke;
+    font-family:  Calibri;
+    font-size: large;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    right: 0;    
+    margin : auto 1em 3em auto;
+    text-align: right;
+    font-size: smaller;
+}
+
+footer p{
+    margin: 0 auto 0 auto;
+}
+
+input{
+    margin: auto auto 1em 1em;
+}
+
+button{
+    margin: auto 1em 1em auto;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: smaller;
+}
+
+a{
+    text-decoration: none;
+    
+}
+
+select{
+    margin: auto auto 1em 1em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: smaller;
+}
+
 #container
 {
     border: solid 3px black;

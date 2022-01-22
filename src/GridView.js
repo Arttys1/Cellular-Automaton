@@ -43,13 +43,13 @@ class GridView {
             var rectangle = this.#rect(cellule);
 
             //définition d'évenements sur les rectangles
-            rectangle.on('click', function () {
+            rectangle.on('click tap', function () {
                 grid.clickRect(this);
             });
-            rectangle.on('mousedown', () => {
+            rectangle.on('mousedown touchstart', () => {
                 this.#AllRectangleOverOn();
             });
-            rectangle.on('mouseup', () => {
+            rectangle.on('mouseup touchend', () => {
                 this.#AllRectangleOverOff();
             })
 
@@ -61,7 +61,7 @@ class GridView {
     #AllRectangleOverOn() {
         try {
             for (const rect of this.#rectsMap.keys()) {
-                rect.on('mouseover', function () {
+                rect.on('mouseover touchmove', function () {
                     let cell = grid.getCell(this);
                     cell.setEtat(Etat.VIVANT);
                     this.setFill(grid.getColor(cell));

@@ -30,7 +30,7 @@ buttonAutomate.addEventListener('click', ()=>{
     switch(type){
         case 'A': automate = new GameOfLife(grid.getGrid()); break;
         case 'B': automate = new DayNight(grid.getGrid()); break;
-        //case 'C': break;
+        case 'C': automate = new HighLife(grid.getGrid()); break;
         default : throw new Error('Not implemented Automaton type');
     }        
     grid.iterate(automate, number, delay);
