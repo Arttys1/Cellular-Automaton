@@ -17,6 +17,7 @@
         <script type="text/javascript" src="Metier/Automate/GameOfLife.js"></script>        
         <script type="text/javascript" src="Metier/Automate/Day&Night.js"></script>  
         <script type="text/javascript" src="Metier/Automate/HighLife.js"></script>
+        <script type="text/javascript" src="init.js"></script> <!--initialize event of the page-->
 
         <meta charset="utf-8"/>
         <link rel="stylesheet" type="text/css" href="main.css">
@@ -51,7 +52,8 @@
                 <label for="CBSize">Taille des cellules : </label>
                 <select id="CBSize">
                     <option value=20>20</option>
-                    <option value=30>30</option>
+                    <option value=30 selected="selected" >30</option>
+                    <option value=40>40</option>
                     <option value=50>50</option>                    
                 </select> <br/>
 
@@ -59,7 +61,7 @@
                 <input type="number" id="iterateInput" value="10" min="1"></input><br/>
 
                 <label>Délai entre 2 itérations</label>
-                <input type="number" id="delayIterate" value="500" max="2000" min="100"></input><br/>
+                <input type="number" id="delayIterate" value="100" max="2000" min="10"></input><br/>
 
                 <button id="buttonAutomate">Lancer l'automate</button>
                 <label id="labelAutomate">Jeu de la vie</label><br/>
@@ -68,7 +70,6 @@
                 <button id="buttonFillGrid">Grille remplis</button>
                 <button id="buttonEmptyGrid">Grille vide</button>
 
-                <script type="text/javascript" src="init.js"></script> <!--initialize event of the page-->
                 <footer>
                     <p>Réalisé par Arnaud Curie.</p>
                     <p><a href="https://github.com/Arttys1/Cellular-Automaton">Lien vers le github du projet</a></p>

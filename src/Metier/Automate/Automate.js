@@ -32,14 +32,7 @@ class Automate
         this.#buffer.clear();
         for(const cell of this.#grid.getCellules())
         {
-            if(this.#isBorder(cell))
-            {
-                this.#addBuffer(cell, Etat.MORT);
-            }
-            else
-            {
-                this.#addBuffer(cell, this.isCellAlive(cell));
-            }
+            this.#addBuffer(cell, this.isCellAlive(cell));
         }
         
         for (const [cell, etat] of this.#buffer) {

@@ -3,16 +3,18 @@
  */
 class Settings
 {
-    #sizeCell = 20;
-    #nbCellHeight = 30;
-    #nbCellWidth = 45;
-    #heightContainer = 600;
-    #widthContainer = 900;
+    #sizeCell = 30;
+    #nbCellHeight = 20;
+    #nbCellWidth = 30;
+    #heightContainer = (window.innerHeight * 0.93);
+    #widthContainer = (window.innerWidth * 0.66);
     #couleur = Couleur.BLANC_CYAN;
 
     static #instance = null;
 
     constructor(){
+        this.setHeightContainer(window.innerHeight * 0.93);
+        this.setWidthContainer(window.innerWidth * 0.66);
     }
 
     /**
@@ -40,8 +42,8 @@ class Settings
      */
     setSizeCell(value){
         this.#sizeCell = value;
-        this.#nbCellHeight = Math.trunc(this.getHeightContainer() / this.#sizeCell);
-        this.#nbCellWidth = Math.trunc(this.getWidthContainer() / this.#sizeCell);        
+        this.#nbCellHeight = Math.round(this.getHeightContainer() / this.#sizeCell);
+        this.#nbCellWidth = Math.round(this.getWidthContainer() / this.#sizeCell);        
     }
 
     /**
