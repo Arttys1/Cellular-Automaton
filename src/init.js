@@ -1,5 +1,6 @@
 //init event on load window
 window.addEventListener("load", ()=>{
+
     //init event on ComboBox of Automaton Type
     let select = document.getElementById('CBAutomateType');
     select.addEventListener('change', function(){
@@ -56,4 +57,10 @@ window.addEventListener("load", ()=>{
     buttonEmpty.addEventListener('click', ()=>{
         grid.emptyGrid();
     });
+});
+
+//init event window's resize to resize the grid
+window.addEventListener("resize", ()=>{
+    Settings.get().resizeGrid();
+    grid.loadContainer();
 });

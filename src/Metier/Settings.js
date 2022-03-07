@@ -13,8 +13,7 @@ class Settings
     static #instance = null;
 
     constructor(){
-        this.setHeightContainer(window.innerHeight * 0.93);
-        this.setWidthContainer(window.innerWidth * 0.66);
+        this.resizeGrid();
     }
 
     /**
@@ -28,6 +27,12 @@ class Settings
             this.#instance = new Settings();
         }
         return this.#instance;
+    }
+
+    resizeGrid()
+    {
+        this.setHeightContainer(window.innerHeight * 0.93);
+        this.setWidthContainer(window.innerWidth * 0.66);
     }
 
     /**
